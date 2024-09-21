@@ -38,7 +38,7 @@ Game Service - Handles the core gameplay where users are shown a flag and must g
 
 Diagram for classification:
 
-![The diagram](/pad1.jpg)
+![The diagram](/2124.jpg)
 
 # Design Data Management
 
