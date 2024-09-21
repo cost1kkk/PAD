@@ -137,6 +137,24 @@ Diagram for classification:
     }
 ```
 
+## WebSocket Endpoint
+- Endpoint:
+  ```
+   ws://localhost:5001/game/{userId}
+  ```
+- Message Example for Game Over Anouncment
+ ```
+ {
+    "action": "game_over",
+    "final_scores": [
+        {"username": "player1", "points": 150},
+        {"username": "player2", "points": 130}
+    ],
+    "message": "Game over! Thank you for playing!"
+}
+```
+
+
 # Set up Deployment and Scaling
 
 Each microservice will have its own Dockerfile to allow for independent deployment and scaling.
