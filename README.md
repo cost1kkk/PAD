@@ -1,19 +1,18 @@
 # Guess the Country by Flag App Platform
 
-This app is a game where users guess the name of countries based on their flags. Users can register, participate in the quiz, and view their rankings on a live leaderboard. The platform leverages microservices for separate functionalities like user registration, the flag guessing game, and a live leaderboard, ensuring scalability and real-time updates using Websockets.
+This app is a game where users guess the name of countries based on their flags. Users can register, participate in the quiz, and view their rankings on a live leaderboard. The platform leverages microservices for separate functionalities like user registration, the flag guessing game with a live leaderboard, ensuring scalability and real-time updates using Websockets.
 
 # Assess Application Suitability
 1. Easy Communication
 - Real-time interaction enables multiple users to guess flags simultaneously, with the leaderboard updating live as they play.
 2. Easy Availability
-- The architecture ensures that if for example ”Leaderboard Service” experiences issues, the ”Game Service” will continue to function normally and other users should be able to play.
+- The architecture ensures that if for example ”User Registration Service” experiences issues, the ”Game Service” will continue to function normally and other users should be able to play.
 3. Scalability
-- By utilizing microservices, components such as Game Service and Leaderboard Service can scale independently, allowing the app to handle large numbers of users.
+- By utilizing microservices, components such as Game Service and User Registration Service can scale independently, allowing the app to handle large numbers of users.
 # Service Boundaries
 
 User Registration Service - Manages the registration and login processes for users, allowing them to create accounts and log in to participate in the game.
 Game Service - Handles the core gameplay where users are shown a flag and must guess the corresponding country, with points awarded for correct answers.
-Leaderboard Service - Displays a live leaderboard showing the top players based on their accumulated points.
 
 # Technology Stack and Communication Patterns
 
