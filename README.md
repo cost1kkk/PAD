@@ -9,6 +9,13 @@ This app is a game where users guess the name of countries based on their flags.
 - The architecture ensures that if for example ”User Registration Service” experiences issues, the ”Game Service” will continue to function normally and other users should be able to play.
 3. Scalability
 - By utilizing microservices, components such as Game Service and User Registration Service can scale independently, allowing the app to handle large numbers of users.
+
+
+Real-world Examples similar to my app:
+- Kahoot! is a popular online quiz platform where users can create and participate in quizzes on various topics, with real-time interaction, scoring, and leaderboards.
+- HQ Trivia is a live quiz app where users could join and answer trivia questions in real-time, competing for cash prizes with live leaderboard updates
+
+
 # Service Boundaries
 
 User Registration Service - Manages the registration and login processes for users, allowing them to create accounts and log in to participate in the game.
@@ -21,10 +28,17 @@ Game Service - Handles the core gameplay where users are shown a flag and must g
     - Framework: Flask
     - Communication: REST API for interaction with the Game and Leaderboard services
 2. Game Service
-    - Language: JavaScript
-    - Framework: Express.JS
+    - Language: Python
+    - Framework: Flask-SocketIO
     - Communication: Websockets for real-time interactions during gameplay
+3. Gateway & Service Discovery
+    - Language: Java
+    - Framework: Spring Cloud Gateway and Eureka for service discovery
+    - Communication: Routes HTTP requests to the correct microservices
 
+Diagram for classification:
+
+![The diagram](/Diagram.png)
 
 # Design Data Management
 
@@ -126,13 +140,26 @@ Game Service - Handles the core gameplay where users are shown a flag and must g
 # Set up Deployment and Scaling
 
 Each microservice will have its own Dockerfile to allow for independent deployment and scaling.
+
+Game Service Dockerfile:
 ```
-        # Game Service Dockerfile
-    FROM node:18-alpine
-    WORKDIR /app
-    COPY . .
-    RUN npm install
-    CMD ["node", "start"]
+FROM python:3.9-alpine
+WORKDIR /app
+COPY . .
+RUN pip install flask flask-socketio
+CMD ["python", "app.py"]
+
+
+```
+
+User Registration Service Dockerfile
+
+```
+FROM python:3.9-alpine
+WORKDIR /app
+COPY . .
+RUN pip install flask
+CMD ["python", "app.py"]
 
 ```
 
@@ -140,17 +167,30 @@ Example of Docker Compose
 
 ```
      version: '3.8'
-    services: 
-        user-registration-service:
-            build: ./user-registration-service
-            ports:
-                - "5000:5000"
-        game-service:
-            build: ./game-service
-            ports:
-                - "5001:5001"
-        redis:
-            image: "redis:alpine"
+services: 
+  user-registration-service:
+    build: ./user-registration-service
+    ports:
+      - "5000:5000"
+
+  game-service:
+    build: ./game-service
+    ports:
+      - "5001:5001"
+
+  redis:
+    image: "redis:alpine"
+
+  gateway:
+    build: ./gateway
+    ports:
+      - "8080:8080"
+
+  eureka:
+    image: "eureka-server:latest"
+    ports:
+      - "8761:8761"
+
 
 ```
 
