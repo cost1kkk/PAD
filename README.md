@@ -254,9 +254,9 @@ app.listen(PORT, () => {
 });
 ```
 ---
+## assets/view.py
 This code defines several API views for handling **assets** and their relationship with **scenes** using Django Rest Framework (DRF). Let’s break it down step by step.
 
----
 
 ### **Imports**
 ```python
